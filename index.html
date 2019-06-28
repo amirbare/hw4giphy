@@ -6,20 +6,23 @@
     <title>HW 4 GIPHY API</title>
 
     <style>
-    
     .animaldiv
     {
 
-
-        line-height: 20px;
-        margin-top: 20px;
+        margin-top: 40px;
     }
+    .center
+    {
+
+        text-align: center;
+    }
+    
     </style>
 </head>
 
 <body>
 
-        <div>
+    <div class="center">
     <button id="cat-button">cat</button>
     <button id="dog-button">dog</button>
     <button id="horse-button">horse</button>
@@ -28,19 +31,25 @@
     <button id="tiger-button">tiger</button>
     <button id="wolf-button">wolf</button>
     <button id="elephant-button">elephant</button>
-</div>
+
+
+    
+    <div id="buttons-view"></div>
 
     <div class="animaldiv">
-    <form id="animal-form">
-            <label for="animal-input">Add a Animal Button!</label>
-            <input type="text" id="movie-input">
-            <br>
-      
-            <!-- Button triggers new movie to be added -->
-            <input id="add-animal-button" type="submit" value="Add a Animal Button!">
-          </form>
+    <form id="movie-form">
+      <label for="movie-input">Add An Animal Button</label>
+      <input type="text" id="movie-input">
+      <br>
 
-        </div>
+      <!-- Button triggers new movie to be added -->
+      <input id="add-movie" type="submit" value="Add a Animal">
+    </form>
+
+    <!-- Movies will Get Dumped Here -->
+    <div id="movies-view"></div>
+</div>
+</div>
     <div id="images">
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -312,7 +321,78 @@
 
 
 
-        function renderButtons() {
+
+
+
+
+
+
+        var movies = [];
+
+// displayMovieInfo function re-renders the HTML to display the appropriate content
+function displayMovieInfo() {
+
+    var animalname = $("#movie-input").val().trim();
+
+
+
+  var movie = $(this).attr("data-name");
+  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=" + animalname;
+
+  // Creating an AJAX call for the specific movie button being clicked
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+
+    // Creating a div to hold the movie
+    var movieDiv = $("<div class='movie'>");
+
+
+
+            var imageUrl = response.data.image_original_url;
+
+// Creating and storing an image tag
+var catImage = $("<img>");
+
+// Setting the catImage src attribute to imageUrl
+catImage.attr("src", imageUrl);
+catImage.attr("alt", "cat image");
+
+// Prepending the catImage to the images div
+$("#images").prepend(catImage);
+
+    // Storing the rating data
+
+    // Creating an element to have the rating displayed
+
+    // Displaying the rating
+
+    // Storing the release year
+
+    // Creating an element to hold the release year
+
+    // Displaying the release year
+
+    // Storing the plot
+
+    // Creating an element to hold the plot
+
+    // Appending the plot
+
+    // Retrieving the URL for the image
+
+    // Creating an element to hold the image
+
+    // Appending the image
+
+    // Putting the entire movie above the previous movies
+    $("#movies-view").prepend(movieDiv);
+  });
+
+}
+         // Function for displaying movie data
+      function renderButtons() {
 
 // Deleting the movies prior to adding new movies
 // (this is necessary otherwise you will have repeat buttons)
@@ -354,8 +434,6 @@ $(document).on("click", ".movie-btn", displayMovieInfo);
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
     </script>
-
-
 </body>
 
 </html>
